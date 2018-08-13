@@ -9,6 +9,7 @@ public class Player {
 	private int moves; 
 	private String token;
 	private Position pos;
+	private Position oldPos;
 	private boolean playing;
 	
 	public Player(String name, String token, Position pos, boolean playing) {
@@ -16,15 +17,37 @@ public class Player {
 		this.token = token;
 		this.moves = 0;
 		this.pos = pos;
+		this.oldPos = pos;
 		this.playing = playing;
 	}
 	
 	public void addCard(Card c) {
 		myCards.add(c);
 	}
+
+	public void newPosition(int x, int y){
+		System.out.println("OLDpos x: " + this.oldPos.x);
+		this.oldPos = this.pos;
+		System.out.println("OLDpos x: " + this.oldPos.x);
+		System.out.println("OLDpos y: " + this.oldPos.y);
+		System.out.println("OLDpos x: " + this.getOldXPosition());
+		System.out.println("OLDpos y: " + this.getOldYPosition());
+		this.pos.x += x;
+		this.pos.y += y;
+		System.out.println("pos x: " + pos.x);
+		System.out.println("pos y: " + pos.y);
+	}
+
+	public int getOldXPosition(){ return this.oldPos.x; }
+
+	public int getOldYPosition(){ return this.oldPos.y; }
 	
-	public void move(int moves){
+	public void addMoves(int moves){
 		this.moves = moves;
+	}
+
+	public void moved(){ this.moves--;
+		System.out.println("moves left: " + this.moves);
 	}
 	
 	public int getMoves() {

@@ -12,7 +12,6 @@ public class Board {
 	private static final int BOARD_LEN = 27;
 	private String[][] stdBoard = new String[BOARD_LEN][BOARD_LEN];
 	private String[][] gameBoard = new String[BOARD_LEN][BOARD_LEN];
-
 	
 	
 	public void draw(){
@@ -33,8 +32,8 @@ public class Board {
 	public void create() throws IOException{
 		int i = 0;
 		int j = 0;
-		// add try and catch around reader or method 
-		File f = new File("C:\\Users\\teccl\\eclipse-workspace\\Cluedo\\src\\board");
+
+		File f = new File("src/board");
 		Scanner sc = new Scanner(f).useDelimiter("\\s");
 		while (sc.hasNext()) {
 			String s = sc.next();
@@ -42,17 +41,19 @@ public class Board {
 			gameBoard[i][j] = translateTile(s);
 			
 			j++;
-			if(j == 27) {
+			if(j == 26) {
 			i++;
 			j = 0;
 			}
-			// add to 2d array
 		}
 		sc.close();
 	}
 	
 	public void placePlayer(Player p) {
+		System.out.println("new x: " + p.getXPosition()+ "\n" + "new y: " + p.getYPosition() + "\n" +
+				"old x: " + p.getOldXPosition() + "\n" + "old y: " + p.getOldYPosition() + "\n");
 		gameBoard[p.getXPosition()][p.getYPosition()] = p.getToken();
+		//gameBoard[p.getOldXPosition()][p.getOldYPosition()] = " ";
 	}
 	
 	public String translateTile(String s) {
@@ -89,7 +90,7 @@ public class Board {
 			case "v":
 				return "v";
 			
-				// As character.isAplha or isLowerCase didnt work
+				// As character.isAlpha or isLowerCase didn't work
 			case "b":
 				return "b";
 			case "l":

@@ -1,3 +1,4 @@
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,58 +41,64 @@ public class Game {
 		
 	}
 	
-	private void startGame() {
+	private void startGame(){
+
 		while (gamePlaying) {
-			
+			System.out.println("Move your character with w/a/s/d for up/left/down/right respectively");
+
 			for(int i = 0; i < numPlayers; i++) {
-				players.get(i).move(rollDice());
+				if(i == numPlayers){ i = 0; }
+				Player player = players.get(i);
+				player.addMoves(rollDice());
+				int maxMoves = player.getMoves();
 				
-				//System.out.println(players.get(i).toString() + " roll: " + players.get(i).getMoves());
-				
-					while(players.get(i).getMoves() != 0) {
-						// listen to keyboard and --move per valid move
-						
-					}
+				System.out.println(player.toString() + " roll: " + player.getMoves());
+
+						for(int j = 0; j < maxMoves; j++) {
+							Position p = movePlayer();
+							player.newPosition(p.y, p.x);
+							player.moved();
+							board.placePlayer(player);
+							board.draw();
+						}
 			}
-			
 		}
 	}
-	
-	public Position keyPressed(KeyEvent e) throws InterruptedException {
-		System.out.println("now wait");
-		Thread.sleep(700);
-		System.out.println("now begin");
-		
-		int dx = 0; 
-		int dy = 0;
-		int key = e.getKeyCode();
-		
-		if(key == KeyEvent.VK_LEFT) {
-			System.out.println("left ");
-			dx = -1;
-		}else if(key == KeyEvent.VK_RIGHT) {
-			System.out.println("left ");
-			dx = 1;
-		}else if(key == KeyEvent.VK_UP) {
-			System.out.println("left ");
-			dy = -1;
-		}else if(key == KeyEvent.VK_DOWN) {
-			System.out.println("left ");
-			dy = -1;
-		}
-		
-		Position p = new Position(dx, dy);
-		return p;
-	}
+
 	
 	private int rollDice() {
 		int dice1 =(int) (Math.random()*(7-1)+1);
 		int dice2 =(int) (Math.random()*(7-1)+1);
 		return (dice1 + dice2);
 	}
+
+	private Position movePlayer() {
+		System.out.println("Next Input: \n");
+		Scanner move = new Scanner(System.in);
+		String l = move.nextLine();
+
+		int dx = 0;
+		int dy = 0;
+
+		if(l.equals("w")) {
+			System.out.println("up");
+			dy = -1;
+		}else if(l.equals("a")) {
+			System.out.println("left");
+			dx = -1;
+		}else if(l.equals("s")) {
+			System.out.println("down");
+			dy = 1;
+		}else if(l.equals("d")) {
+			System.out.println("right");
+			dx = 1;
+		}
+
+		Position p = new Position(dx, dy);
+		return p;
+	}
 	
 	private void addPlayerToBoard() {
-		
 		for (int i = 0; i < numPlayers; i++) {
 			board.placePlayer(players.get(i));
 		}
@@ -133,7 +140,7 @@ public class Game {
 				}
 			}
 		}
-			s.close();
+
 	}
 
 	/**
@@ -303,3 +310,34 @@ public class Game {
 	}
 
 }
+
+
+/*
+
+	public Position keyPressed(KeyEvent e) throws InterruptedException {
+		System.out.println("now wait");
+		Thread.sleep(700);
+		System.out.println("now begin");
+
+		int dx = 0;
+		int dy = 0;
+		int key = e.getKeyCode();
+
+		if(key == KeyEvent.VK_LEFT) {
+			System.out.println("left ");
+			dx = -1;
+		}else if(key == KeyEvent.VK_RIGHT) {
+			System.out.println("left ");
+			dx = 1;
+		}else if(key == KeyEvent.VK_UP) {
+			System.out.println("left ");
+			dy = -1;
+		}else if(key == KeyEvent.VK_DOWN) {
+			System.out.println("left ");
+			dy = -1;
+		}
+
+		Position p = new Position(dx, dy);
+		return p;
+	}
+ */
