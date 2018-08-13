@@ -1,0 +1,5 @@
+Working on keyboard listener to get player to move around board.
+implement the keyevent method
+change position of player in player class (adding the new position change to old)
+update board 
+redraw board
