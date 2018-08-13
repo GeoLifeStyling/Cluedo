@@ -28,7 +28,7 @@ public class Game {
 	 * Starts new Game Generates all new initial cards, players and board.
 	 */
 	public void start() throws IOException{
-		this.board = new Board();
+		this.board = new Board(this);
 		this.board.create();
 		createCards();
 		generateMurder();
@@ -45,7 +45,6 @@ public class Game {
 
 		while (gamePlaying) {
 			System.out.println("Move your character with w/a/s/d for up/left/down/right respectively");
-
 			for(int i = 0; i < numPlayers; i++) {
 				if(i == numPlayers){ i = 0; }
 				Player player = players.get(i);
@@ -56,7 +55,7 @@ public class Game {
 
 						for(int j = 0; j < maxMoves; j++) {
 							Position p = movePlayer();
-							player.newPosition(p.y, p.x);
+							player.newPosition(p.x, p.y);
 							player.moved();
 							board.placePlayer(player);
 							board.draw();
@@ -65,6 +64,9 @@ public class Game {
 		}
 	}
 
+	public Player getP(){
+		return players.get(0);
+	}
 	
 	private int rollDice() {
 		int dice1 =(int) (Math.random()*(7-1)+1);
@@ -82,16 +84,16 @@ public class Game {
 
 		if(l.equals("w")) {
 			System.out.println("up");
-			dy = -1;
+			dx = -1;
 		}else if(l.equals("a")) {
 			System.out.println("left");
-			dx = -1;
+			dy = -1;
 		}else if(l.equals("s")) {
 			System.out.println("down");
-			dy = 1;
+			dx = 1;
 		}else if(l.equals("d")) {
 			System.out.println("right");
-			dx = 1;
+			dy = 1;
 		}
 
 		Position p = new Position(dx, dy);
@@ -101,7 +103,12 @@ public class Game {
 	private void addPlayerToBoard() {
 		for (int i = 0; i < numPlayers; i++) {
 			board.placePlayer(players.get(i));
+			Player p = players.get(i);
+			System.out.println("addplayertoboard new x: " + p.getXPosition()+ "\n" + "new y: " + p.getYPosition() + "\n" +
+					"old x: " + p.getOldXPosition() + "\n" + "old y: " + p.getOldYPosition() + "\n");
+
 		}
+
 	}
 
 	private void startGameInterface() {

@@ -27,7 +27,7 @@ public class Player {
 
 	public void newPosition(int x, int y){
 		System.out.println("OLDpos x: " + this.oldPos.x);
-		this.oldPos = this.pos;
+		this.oldPos = new Position(this.pos.x, this.pos.y);//this.pos;
 		System.out.println("OLDpos x: " + this.oldPos.x);
 		System.out.println("OLDpos y: " + this.oldPos.y);
 		System.out.println("OLDpos x: " + this.getOldXPosition());
