@@ -28,7 +28,7 @@ public class Game {
 	 * Starts new Game Generates all new initial cards, players and board.
 	 */
 	public void start() throws IOException{
-		this.board = new Board(this);
+		this.board = new Board();
 		this.board.create();
 		createCards();
 		generateMurder();
@@ -54,7 +54,13 @@ public class Game {
 				System.out.println(player.toString() + " roll: " + player.getMoves());
 
 						for(int j = 0; j < maxMoves; j++) {
+							
 							Position p = movePlayer();
+							
+							while(checkTile(player, p)) {
+								p = movePlayer();
+							}
+							
 							player.newPosition(p.x, p.y);
 							player.moved();
 							board.placePlayer(player);
@@ -63,9 +69,25 @@ public class Game {
 			}
 		}
 	}
-
-	public Player getP(){
-		return players.get(0);
+	
+	private boolean checkTile(Player player, Position p) {
+		String s  = "";
+		s = board.checkBoard(player.getXPosition()+p.x, player.getYPosition()+p.y);
+		System.out.println("Checktile - board value: " + s);
+		switch (s) {
+			case " ":
+				return false;
+			case "^":
+				return false;
+			case ">":
+				return false;
+			case "<":
+				return false;
+			case "v":
+				return false;
+		}
+		System.out.println("invalid direction please try again");
+		return true;
 	}
 	
 	private int rollDice() {
@@ -75,7 +97,7 @@ public class Game {
 	}
 
 	private Position movePlayer() {
-		System.out.println("Next Input: \n");
+		System.out.println("Move direction: \n");
 		Scanner move = new Scanner(System.in);
 		String l = move.nextLine();
 
@@ -104,11 +126,7 @@ public class Game {
 		for (int i = 0; i < numPlayers; i++) {
 			board.placePlayer(players.get(i));
 			Player p = players.get(i);
-			System.out.println("addplayertoboard new x: " + p.getXPosition()+ "\n" + "new y: " + p.getYPosition() + "\n" +
-					"old x: " + p.getOldXPosition() + "\n" + "old y: " + p.getOldYPosition() + "\n");
-
 		}
-
 	}
 
 	private void startGameInterface() {

@@ -12,15 +12,8 @@ public class Board {
 	private static final int BOARD_LEN = 27;
 	private String[][] stdBoard = new String[BOARD_LEN][BOARD_LEN];
 	private String[][] gameBoard = new String[BOARD_LEN][BOARD_LEN];
-	Game g;
-
-	public Board(Game g){
-		this.g = g;
-	}
 	
 	public void draw(){
-		System.out.println("new READ x: " + g.getP().getXPosition()+ "\n" + "new y: " + g.getP().getYPosition() + "\n" +
-				"old x: " + g.getP().getOldXPosition() + "\n" + "old y: " + g.getP().getOldYPosition() + "\n");
 		String s = "";
 		for(int i = 0; i < BOARD_LEN; i++) {
 			for (int j = 0; j < gameBoard[i].length-1; j++) {
@@ -47,7 +40,7 @@ public class Board {
 			gameBoard[i][j] = translateTile(s);
 			
 			j++;
-			if(j == 26) {
+			if(j == 27) {  // change to 26 for intellij
 			i++;
 			j = 0;
 			}
@@ -55,15 +48,21 @@ public class Board {
 		sc.close();
 	}
 	
+	public String checkBoard(int x, int y) {
+		return gameBoard[x][y];
+	}
+	
 	public void placePlayer(Player p) {
-		System.out.println("place player new x: " + p.getXPosition()+ "\n" + "new y: " + p.getYPosition() + "\n" +
-				"old x: " + p.getOldXPosition() + "\n" + "old y: " + p.getOldYPosition() + "\n");
+		String s = stdBoard[p.getOldXPosition()][p.getOldYPosition()];
+		System.out.println("stdBoard value : " + s);
+		translateTile(s);
+		System.out.println("translate value : " + s);
 		gameBoard[p.getXPosition()][p.getYPosition()] = p.getToken();
-		gameBoard[p.getOldXPosition()][p.getOldYPosition()] = " ";
+		gameBoard[p.getOldXPosition()][p.getOldYPosition()] = s;
 	}
 	
 	public String translateTile(String s) {
-		
+		System.out.println("translate: " + s);
 		switch(s) {
 			case "K":
 				return " ";

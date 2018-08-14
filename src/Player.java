@@ -26,16 +26,9 @@ public class Player {
 	}
 
 	public void newPosition(int x, int y){
-		System.out.println("OLDpos x: " + this.oldPos.x);
-		this.oldPos = new Position(this.pos.x, this.pos.y);//this.pos;
-		System.out.println("OLDpos x: " + this.oldPos.x);
-		System.out.println("OLDpos y: " + this.oldPos.y);
-		System.out.println("OLDpos x: " + this.getOldXPosition());
-		System.out.println("OLDpos y: " + this.getOldYPosition());
+		this.oldPos = new Position(this.pos.x, this.pos.y);
 		this.pos.x += x;
 		this.pos.y += y;
-		System.out.println("pos x: " + pos.x);
-		System.out.println("pos y: " + pos.y);
 	}
 
 	public int getOldXPosition(){ return this.oldPos.x; }

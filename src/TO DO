@@ -1,5 +1,3 @@
-Working on keyboard listener to get player to move around board.
-implement the keyevent method
-change position of player in player class (adding the new position change to old)
-update board 
-redraw board
+Collision of all objects (comparing to original board and other player positions.( from game instance)
+Special case for entrance to rooms
+-move only when actually moved.
