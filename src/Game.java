@@ -65,10 +65,13 @@ public class Game {
 							player.moved();
 							board.placePlayer(player);
 							board.draw();
+							//checkInRoom();
 						}
 			}
 		}
 	}
+
+
 	
 	private boolean checkTile(Player player, Position p) {
 		String s  = "";

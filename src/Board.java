@@ -40,7 +40,7 @@ public class Board {
 			gameBoard[i][j] = translateTile(s);
 			
 			j++;
-			if(j == 27) {  // change to 26 for intellij
+			if(j == 26) {  // change to 26 for intellij 27 for eclipse.. don't ask me why... if you know please tell me!
 			i++;
 			j = 0;
 			}
@@ -55,10 +55,11 @@ public class Board {
 	public void placePlayer(Player p) {
 		String s = stdBoard[p.getOldXPosition()][p.getOldYPosition()];
 		System.out.println("stdBoard value : " + s);
-		translateTile(s);
+		s = translateTile(s);
 		System.out.println("translate value : " + s);
-		gameBoard[p.getXPosition()][p.getYPosition()] = p.getToken();
+
 		gameBoard[p.getOldXPosition()][p.getOldYPosition()] = s;
+		gameBoard[p.getXPosition()][p.getYPosition()] = p.getToken();
 	}
 	
 	public String translateTile(String s) {
