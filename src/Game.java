@@ -1,10 +1,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
 	// To store all of the players, cards on board,
@@ -15,12 +12,12 @@ public class Game {
 	private int numPlayers;
 	private boolean gamePlaying = true;
 	private int maxMoves;
-	private boolean ifAccusation = false;
-	private boolean madeAccusation = false;
 
 	private ArrayList<Card> solutionCards = new ArrayList<Card>(); // Murder mystery cards
 
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> losingPlayers = new ArrayList<Player>();
+
 	private ArrayList<RoomTile> rooms = new ArrayList<>();
 
 	private ArrayList<Card> allCards = new ArrayList<Card>();
@@ -55,34 +52,41 @@ public class Game {
 
 		while (gamePlaying) {
 
-			System.out.println("Move your character with w/a/s/d for up/left/down/right respectively\nOr make an accusation with 'g' But beware you will lose if incorrect\n");
+			System.out.println("Move your character with w/a/s/d for up/left/down/right respectively\nOr make an accusation with 'g' at the start of your turn But beware you will lose if incorrect\n");
 			for(int i = 0; i < numPlayers; i++) {
-				if(i == numPlayers){ i = 0; }
 				Player player = players.get(i);
+
+				if(losingPlayers.size() == numPlayers){
+					System.out.println("No players Left!");
+					this.gamePlaying = false;
+					break;
+				}
+
+				if(losingPlayers.contains(player)){
+					continue;
+				}
+
+				if(i == numPlayers){ i = 0; }
+
 				player.addMoves(rollDice());
 				this.maxMoves = player.getMoves();
-				
+
 				System.out.println(player.toString() + " roll: " + player.getMoves());
 
 						for(int j = 0; j < this.maxMoves; j++) {
 							
-							Position p = movePlayer();
-							if(this.ifAccusation){
-								makeAccusation(player);
-							}
+							Position p = movePlayer(player);
+
 							while(checkTile(player, p)) {
-								p = movePlayer();
-								if(this.ifAccusation){
-									makeAccusation(player);
-								}
+								System.out.println(player.toString());
+								p = movePlayer(player);
 							}
-							if(this.madeAccusation == false) {
+
 								player.newPosition(p.x, p.y);
 								player.moved();
 								this.board.placePlayer(player);
 								this.board.draw();
 								checkInRoom(player);
-							}
 						}
 			}
 		}
@@ -158,8 +162,7 @@ for (int i = 0; i < rooms.size();i++){
 		return false;
 	}
 
-	private void makeAccusation(Player p) throws InputMismatchException{
-		Scanner sc = new Scanner(System.in);
+	private void makeAccusation(Player p, Scanner sc) throws InputMismatchException{
 		int num;
 
 		System.out.println("Choose your character murder suspect number and hit enter");
@@ -187,17 +190,8 @@ for (int i = 0; i < rooms.size();i++){
 		String weapon = allCards.get(num).toString();
 
 		checkHiddenEnvelope(character, room, weapon);
-		if(gamePlaying == false){
-			this.ifAccusation = false;
-			return;
-		}
-
+		this.losingPlayers.add(p);
 		this.maxMoves = 0;
-		System.out.println("num players before:" + this.players.size());
-		this.players.remove(p);
-		System.out.println("num players after:" + this.players.size());
-		this.ifAccusation = false;
-		this.madeAccusation = true;
 		board.draw();
 	}
 	
@@ -226,7 +220,7 @@ for (int i = 0; i < rooms.size();i++){
 		return (dice1 + dice2);
 	}
 
-	private Position movePlayer() {
+	private Position movePlayer(Player player) throws NoSuchElementException{
 		System.out.println("Move direction: ");
 		Scanner move = new Scanner(System.in);
 		String l = move.nextLine();
@@ -244,7 +238,7 @@ for (int i = 0; i < rooms.size();i++){
 			dy = 1;
 		}else if (l.equals("g")){
 			System.out.println("You have chosen to make an accusation!");
-			this.ifAccusation = true;
+			makeAccusation(player, move);
 		}
 
 		Position p = new Position(dx, dy);
