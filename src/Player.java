@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -10,15 +12,13 @@ public class Player {
 	private String token;
 	private Position pos;
 	private Position oldPos;
-	private boolean playing;
 	
-	public Player(String name, String token, Position pos, boolean playing) {
+	public Player(String name, String token, Position pos) {
 		this.name = name;
 		this.token = token;
 		this.moves = 0;
 		this.pos = pos;
 		this.oldPos = pos;
-		this.playing = playing;
 	}
 	
 	public void addCard(Card c) {
@@ -55,27 +55,20 @@ public class Player {
 		return this.pos.y;
 	}
 	
-	public Position getPosition() {
-		return this.pos;
-	}
-	
-	public boolean isPlaying() {
-		return this.playing;
-	}
-	
 	public String getToken() {
 		return this.token;
 	}
-	
-	public String showCards() {
-		String s = "";
+
+	/**
+	 * For when the player makes a refute
+	 */
+	public void displayCards() {
 		for (int i = 0; i < myCards.size(); i++) {
-			s += myCards.get(i).toString();
+			System.out.println(i + ") " + myCards.get(i).toString());
 		}
-		return s;
 	}
 	
 	public String toString() {
-		return ("Player Name: " + this.name + "\n");
+		return ("Player Name: " + this.name);
 	}
 }

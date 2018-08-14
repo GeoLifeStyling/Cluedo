@@ -11,6 +11,6 @@ public class Character extends Card{
 	
 	@Override
 	public String toString() {
-		return ("Character:" + this.name + "\n");
+		return ("Character:" + this.name);
 	}
 }

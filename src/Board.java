@@ -47,6 +47,10 @@ public class Board {
 		}
 		sc.close();
 	}
+
+	public String getBoardLetter(int x, int y){
+		return stdBoard[x][y];
+	}
 	
 	public String checkBoard(int x, int y) {
 		return gameBoard[x][y];
@@ -54,16 +58,12 @@ public class Board {
 	
 	public void placePlayer(Player p) {
 		String s = stdBoard[p.getOldXPosition()][p.getOldYPosition()];
-		System.out.println("stdBoard value : " + s);
 		s = translateTile(s);
-		System.out.println("translate value : " + s);
-
 		gameBoard[p.getOldXPosition()][p.getOldYPosition()] = s;
 		gameBoard[p.getXPosition()][p.getYPosition()] = p.getToken();
 	}
 	
 	public String translateTile(String s) {
-		System.out.println("translate: " + s);
 		switch(s) {
 			case "K":
 				return " ";

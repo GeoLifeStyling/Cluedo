@@ -12,6 +12,6 @@ public class Room extends Card{
 	
 	@Override
 	public String toString() {
-		return ("Room: " + this.name + "\n");
+		return ("Room: " + this.name);
 	}
 }

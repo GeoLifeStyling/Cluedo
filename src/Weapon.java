@@ -5,8 +5,12 @@ public class Weapon extends Card{
 	public Weapon(String name) {
 		this.name = name;
 	}
+
+	public String getName(){
+		return this.name;
+	}
 	
 	public String toString() {
-		return ("Weapon: " + this.name + "\n");
+		return ("Weapon: " + this.name);
 	}
 }
