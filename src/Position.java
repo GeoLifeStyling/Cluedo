@@ -10,13 +10,5 @@ public class Position {
 		this.x = x;
 		this.y = y;
 	}
-	
-	public int getXPosition() {
-		return this.x;
-	}
-	
-	public int getYPosition() {
-		return this.y;
-	}
-	
+
 }
