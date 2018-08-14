@@ -12,7 +12,10 @@ public class Board {
 	private static final int BOARD_LEN = 27;
 	private String[][] stdBoard = new String[BOARD_LEN][BOARD_LEN];
 	private String[][] gameBoard = new String[BOARD_LEN][BOARD_LEN];
-	
+
+	/**
+	 * Draws the 2d array board
+	 */
 	public void draw(){
 		String s = "";
 		for(int i = 0; i < BOARD_LEN; i++) {
@@ -25,7 +28,7 @@ public class Board {
 	
 	/**
 	 * Reads board file and saves into 2d array 
-	 * @throws IOException 
+	 * @throws IOException - To allow user input error handling
 	 */
 	@SuppressWarnings("resource")
 	public void create() throws IOException{
@@ -51,18 +54,34 @@ public class Board {
 	public String getBoardLetter(int x, int y){
 		return stdBoard[x][y];
 	}
-	
+
+	/**
+	 * Checks to see what is in this spot on the visual board
+	 * @param x - position x
+	 * @param y - position y
+	 * @return String - the string value of the position
+	 */
 	public String checkBoard(int x, int y) {
 		return gameBoard[x][y];
 	}
-	
+
+	/**
+	 * Plces the player token on the visual board and replaces the last position with
+	 * the original board token
+	 * @param p - Player - in current play
+	 */
 	public void placePlayer(Player p) {
 		String s = stdBoard[p.getOldXPosition()][p.getOldYPosition()];
 		s = translateTile(s);
 		gameBoard[p.getOldXPosition()][p.getOldYPosition()] = s;
 		gameBoard[p.getXPosition()][p.getYPosition()] = p.getToken();
 	}
-	
+
+	/**
+	 * This is the original board translater to new visual board for better graphics
+	 * @param s - String - token to replace
+	 * @return - String - token replacing original board token
+	 */
 	public String translateTile(String s) {
 		switch(s) {
 			case "K":

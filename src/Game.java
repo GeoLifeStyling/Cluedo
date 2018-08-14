@@ -144,6 +144,14 @@ for (int i = 0; i < rooms.size();i++){
 		}
 	}
 
+	/**
+	 * This checks all the players cards to see if anyone has the players suggested cards
+	 * Then if true they refute and the player turn is over otherwise carries on next step
+	 * @param c - Character string
+	 * @param r - Room String
+	 * @param w - Weapon String
+	 * @return - return true if any cards match other players cards, other return false
+	 */
 	private boolean checkRefutes(String c, String r, String w){
 		for(int i = 0; i < deckCards.size();i++){
 			if(deckCards.get(i).toString().equals(c)){
@@ -162,6 +170,13 @@ for (int i = 0; i < rooms.size();i++){
 		return false;
 	}
 
+	/**
+	 * This is where a player can make a random accusation of the solution,
+	 * If incorrect they are out of the game
+	 * @param p - Player - in play player
+	 * @param sc - scanner parsed through for further use
+	 * @throws InputMismatchException - if the user inputs an incorrect character
+	 */
 	private void makeAccusation(Player p, Scanner sc) throws InputMismatchException{
 		int num;
 
@@ -194,7 +209,14 @@ for (int i = 0; i < rooms.size();i++){
 		this.maxMoves = 0;
 		board.draw();
 	}
-	
+
+	/**
+	 * Checks the tile for special gateways into the rooms or white spaces,
+	 * Allowing the player to move if clear.
+	 * @param player - In play Player
+	 * @param p - Position - position of current player to move to if clear
+	 * @return - boolean - true if there is an impoassible object, false if clear to move
+	 */
 	private boolean checkTile(Player player, Position p) {
 		String s  = board.checkBoard(player.getXPosition()+p.x, player.getYPosition()+p.y);
 		switch (s) {
@@ -213,13 +235,25 @@ for (int i = 0; i < rooms.size();i++){
 		System.out.println("invalid direction please try again");
 		return true;
 	}
-	
+
+	/**
+	 * Creates to ints for dice and randoms a number between 1 and 6 and sums them
+	 * Range 2-12 for the moves of the character
+	 * @return - Int - number of moves from roll
+	 */
 	private int rollDice() {
 		int dice1 =(int) (Math.random()*(7-1)+1);
 		int dice2 =(int) (Math.random()*(7-1)+1);
 		return (dice1 + dice2);
 	}
 
+	/**
+	 * This moves the player depending on input
+	 * If coorect then the associated move will be tested and and special conditions will result from this methods output
+	 * @param player - current player playing
+	 * @return position - returns a x and y value Position which is to be added to the players current postion after testing if valid.
+	 * @throws NoSuchElementException - To stop incorrect user input
+	 */
 	private Position movePlayer(Player player) throws NoSuchElementException{
 		System.out.println("Move direction: ");
 		Scanner move = new Scanner(System.in);
@@ -244,7 +278,10 @@ for (int i = 0; i < rooms.size();i++){
 		Position p = new Position(dx, dy);
 		return p;
 	}
-	
+
+	/**
+	 * Adds players to the board for visual user view.
+	 */
 	private void addPlayerToBoard() {
 		for (int i = 0; i < numPlayers; i++) {
 			board.placePlayer(players.get(i));
@@ -252,6 +289,9 @@ for (int i = 0; i < rooms.size();i++){
 		}
 	}
 
+	/**
+	 * Adds weapons to rooms at random
+	 */
 	public void addWeaponsToRooms(){
 		int j = (int) Math.random()*(8-0);
 		for(int i = 0; i < weapCards.size(); i++){
@@ -263,6 +303,9 @@ for (int i = 0; i < rooms.size();i++){
 		}
 	}
 
+	/**
+	 * Creates the Room Tiles for all 9 rooms
+	 */
 	public void createRoomTiles(){
 		// Add Room Tile as well as convenient
 		RoomTile kitchen = new RoomTile("Kitchen", "K");
@@ -286,6 +329,10 @@ for (int i = 0; i < rooms.size();i++){
 
 	}
 
+	/**
+	 * Starts the game interface for the intial set up of the game
+	 * Asks how many players wanted and stores this input
+	 */
 	private void startGameInterface() {
 		Scanner s = new Scanner(System.in);
 		boolean incorrectPlayerSize = true;
@@ -394,7 +441,7 @@ for (int i = 0; i < rooms.size();i++){
 	}
 
 	/**
-	 * Creates all the playing cards int the game
+	 * Creates all the playing cards in the game
 	 */
 	private void createCards() {
 		// Character Cards Created
@@ -448,7 +495,11 @@ for (int i = 0; i < rooms.size();i++){
 		// TEST System.out.println(cards.toString());
 
 	}
-	
+
+	/**
+	 * Initializes all players
+	 * and adds the left over deck cards to all players that are in game.
+	 */
 	private void initializePlayers() {
 		
 		Position p1pos = new Position(25,8);

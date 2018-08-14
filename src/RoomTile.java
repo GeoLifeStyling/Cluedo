@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * This class is the actual token on the board that requires interaction with the player tokens for
+ * a feature in the game.
+ */
 public class RoomTile {
 
     private String token;
@@ -20,6 +24,10 @@ public class RoomTile {
         return this.weapon;
     }
 
+    /**
+     * This would have been used if i managed to swap the weapons within rooms
+     * @return
+     */
     public ArrayList<Player> getPlayersInRoom(){
         return this.players;
     }

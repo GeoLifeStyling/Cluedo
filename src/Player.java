@@ -25,6 +25,11 @@ public class Player {
 		myCards.add(c);
 	}
 
+	/**
+	 * Updates position of player and stores old position
+	 * @param x - position x
+	 * @param y - position y
+	 */
 	public void newPosition(int x, int y){
 		this.oldPos = new Position(this.pos.x, this.pos.y);
 		this.pos.x += x;
@@ -54,7 +59,11 @@ public class Player {
 	public int getYPosition() {
 		return this.pos.y;
 	}
-	
+
+	/**
+	 * this is the player token used to display this player on the board
+	 * @return String - ASCII value to represent player
+	 */
 	public String getToken() {
 		return this.token;
 	}

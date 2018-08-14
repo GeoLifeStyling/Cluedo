@@ -1,4 +1,7 @@
-
+/**
+ * This is a class that holds a x and y value to store the position of objects within
+ * the 2d array of the board
+ */
 public class Position {
 
 	int x, y;
