@@ -25,6 +25,13 @@ public class RoomTile {
     }
 
     /**
+     * Adds player to Room
+     * @param player - Player - current player
+     */
+    public void addplayerToRoom(Player player){
+        this.players.add(player);
+    }
+    /**
      * This would have been used if i managed to swap the weapons within rooms
      * @return
      */

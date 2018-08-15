@@ -436,8 +436,9 @@ for (int i = 0; i < rooms.size();i++){
 		if (solutionCards.get(0).toString().equals(character) && solutionCards.get(1).toString().equals(room) && solutionCards.get(2).toString().equals(weapon) ) {
 			System.out.println("YOU WIN!!!");
 			this.gamePlaying = false;
+		} else{
+			System.out.println("This is not the solution!\n Next players turn \n");
 		}
-		System.out.println("This is not the solution!\n Next players turn \n");
 	}
 
 	/**

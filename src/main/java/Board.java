@@ -35,7 +35,7 @@ public class Board {
 		int i = 0;
 		int j = 0;
 
-		File f = new File("src/board");
+		File f = new File("src/main/java/board");
 		Scanner sc = new Scanner(f).useDelimiter("\\s");
 		while (sc.hasNext()) {
 			String s = sc.next();
