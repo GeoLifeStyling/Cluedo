@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * This class is the actual token on the board that requires interaction with the player tokens for
  * a feature in the game.
  */
-public class RoomTile {
+public class RoomTile implements Tile{
 
     private String token;
     private String name;

@@ -34,8 +34,7 @@ public class Board {
 	public void create() throws IOException{
 		int i = 0;
 		int j = 0;
-
-		File f = new File("src/main/java/board");
+		File f = new File("C:\\Users\\teccl\\IdeaProjects\\Cluedo\\src\\main\\java\\board"); // C:\Users\teccl\IdeaProjects\Cluedo\src\main\java\Board.java
 		Scanner sc = new Scanner(f).useDelimiter("\\s");
 		while (sc.hasNext()) {
 			String s = sc.next();
@@ -43,7 +42,7 @@ public class Board {
 			gameBoard[i][j] = translateTile(s);
 			
 			j++;
-			if(j == 26) {  // change to 26 for intellij 27 for eclipse.. don't ask me why... if you know please tell me!
+			if(j == 27) {
 			i++;
 			j = 0;
 			}

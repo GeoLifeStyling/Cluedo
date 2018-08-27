@@ -1,9 +1,10 @@
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
+import javafx.application.Application;
+import javafx.scene.control.Button;
 import java.io.IOException;
 import java.util.*;
 
-public class Game {
+public class Game extends Application{
 	// To store all of the players, cards on board,
 	private Character c;
 	private Room r;
@@ -26,10 +27,14 @@ public class Game {
 	private ArrayList<Card> roomCards = new ArrayList<Card>();
 	private ArrayList<Card> weapCards = new ArrayList<Card>();
 
+	private ArrayList<Tile> boardTiles = new ArrayList<>();
+
 	/**
 	 * Starts new Game Generates all new initial cards, players and board.
 	 */
-	public void start() throws IOException{
+	@Override
+	public void start(Stage stage) throws IOException{
+		stage.setTitle("Cluedo");
 		this.board = new Board();
 		this.board.create();
 		createCards();
@@ -292,7 +297,7 @@ for (int i = 0; i < rooms.size();i++){
 	/**
 	 * Adds weapons to rooms at random
 	 */
-	public void addWeaponsToRooms(){
+	private void addWeaponsToRooms(){
 		int j = (int) Math.random()*(8-0);
 		for(int i = 0; i < weapCards.size(); i++){
 				rooms.get(j).addWeapon(weapCards.get(i));
@@ -306,7 +311,7 @@ for (int i = 0; i < rooms.size();i++){
 	/**
 	 * Creates the Room Tiles for all 9 rooms
 	 */
-	public void createRoomTiles(){
+	private void createRoomTiles(){
 		// Add Room Tile as well as convenient
 		RoomTile kitchen = new RoomTile("Kitchen", "K");
 		RoomTile ballRoom = new RoomTile("Ball Room", "B");
@@ -531,15 +536,7 @@ for (int i = 0; i < rooms.size();i++){
 			}
 			players.get(j).addCard(deckCards.get(i));
 		}
-	
-			/* TEST  - WORKS - handing out of cards ie. splitting cards
-		for (int i = 0; i < numPlayers; i++) {
-			System.out.println(players.get(i).toString() + players.get(i).showCards());
-		}
-		*/
-		
-		
-			
+
 	}
 
 }
